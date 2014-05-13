@@ -22,6 +22,8 @@
 
 	$core->add_controller('home');
 	$core->add_controller('content');
+	$core->add_controller('test');
+	$core->add_controller('email');
 
 /*
 |--------------------------------------------------------------------------
@@ -58,15 +60,15 @@
 
 	});
 
-/* 
-|-------------------------------------------------------------------------- 
-| Mailgun Engine 
-|-------------------------------------------------------------------------- 
-*/ 
- 
-	$core->mailgun = $core->share(function($c){ 
+/*
+|--------------------------------------------------------------------------
+| Mailgun Engine
+|--------------------------------------------------------------------------
+*/
 
-		$c->incl('classes/class.maillist.php'); 
-		return(new MailList($c->config)); 
+	$core->mailgun = $core->share(function($c){
 
-	}); 
+		$c->incl('classes/class.maillist.php');
+		return(new MailList($c->config));
+
+	});

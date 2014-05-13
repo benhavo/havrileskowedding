@@ -3,20 +3,12 @@
 <head>
 	@ $this->inc("includes/head_elements");
 
-	[: block head :] <!--head extras--> [: endblock :]
+	[: block title :] <!--head extras--> [: endblock :]
 </head>
 
 <body>
 	
-<div id="wrapper">
-	
-	<div id="content">
-		<div class="container">
-			[: block body :] page contents [: endblock :]
-		</div>
-	</div>
-
-</div>
+	[: block body :] page contents [: endblock :]
 
 </body>
 </html>

@@ -26,7 +26,7 @@ class db {
 		return($this->query("INSERT INTO $table (".implode(array_keys($data),',').") VALUES (".implode(array_values($data),",").");"));
 	}
 
-	public function update($table,$data){
+	public function update($table,$data = new stdClass){
 		$data=(is_object($data)) ? get_object_vars($data) : $data;
 		$data=$this->prep($table,$data);
 		$update=array();

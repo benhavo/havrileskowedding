@@ -1,23 +1,30 @@
 <script type="application/javascript">
     if(document.getElementById('title1').innerHTML=='Welcome'){
-        var scale1=1/3;
+        var scale1=1;
     }else{
-        var scale1=1/5;
+        var scale1=1/2.5;
     }
-    var y_offset = 300*scale1;
     var width_vp = $(window).width(), height_vp = $(window).height(), 
-        width_canvasNav = width_vp, height_canvasNav = height_vp,
-        y_offset_nav=200*scale1,
-        
-        width_shelf=2370*scale1, height_shelf=730*scale1, 
-        x_offset_nav=0, 
-        x_shelf=50*scale1+x_offset_nav, y_shelf=100*scale1+y_offset_nav,
-        width_welcome=1343/2*scale1, height_welcome=579/2*scale1, x_welcome=900*scale1+x_offset_nav, y_welcome=0*scale1,
-        width_story=525*scale1, height_story=230*scale1, x_story=0*scale1+x_offset_nav, y_story=730*scale1+y_offset_nav,
-        width_events=660*scale1, height_events=220*scale1, x_events=420*scale1+x_offset_nav, y_events=470*scale1+y_offset_nav,
-        width_hotels=625*scale1, height_hotels=240*scale1, x_hotels=920*scale1+x_offset_nav, y_hotels=730*scale1+y_offset_nav,
-        width_travel=660*scale1, height_travel=220*scale1, x_travel=1390*scale1+x_offset_nav, y_travel=470*scale1+y_offset_nav,
-        width_reg=855*scale1, height_reg=230*scale1, x_reg=1770*scale1+x_offset_nav, y_reg=750*scale1+y_offset_nav,
+
+        width_welcome=300*scale1, height_welcome=129*scale1, 
+        width_shelf=836*scale1, height_shelf=257*scale1, 
+        width_story=170*scale1, height_story=74*scale1, 
+        width_events=231*scale1, height_events=77*scale1, 
+        width_hotels=220*scale1, height_hotels=84*scale1, 
+        width_travel=200*scale1, height_travel=79*scale1, 
+        width_reg=300*scale1, height_reg=81*scale1, 
+        width_canvasNav = width_shelf+width_reg/2, 
+        height_canvasNav = height_welcome+height_shelf+height_reg,
+
+        x_welcome=(width_canvasNav-width_welcome)/2-30*scale1, y_welcome=0,
+        x_shelf=50*scale1, y_shelf=y_welcome+height_welcome,
+        y_linkOffset = 260*scale1,
+        x_story=40*scale1, y_story=90*scale1+y_linkOffset,
+        x_events=180*scale1, y_events=0*scale1+y_linkOffset,
+        x_hotels=370*scale1, y_hotels=90*scale1+y_linkOffset,
+        x_travel=540*scale1, y_travel=0*scale1+y_linkOffset,
+        x_reg=670*scale1, y_reg=90*scale1+y_linkOffset,
+
         x1 = 0, y1 = 0, inLink = false, linkDest;
     function drawNav1() {
         //alert($(window).width() + " " + $(window).height());
@@ -99,17 +106,27 @@
     }
     //check if the mouse is over the link and change cursor style
     function on_mousemove (ev) {
-        var x, y;
+        var x, y,
+            is_chrome = navigator.userAgent.indexOf('Chrome') > -1,
+            is_explorer = navigator.userAgent.indexOf('MSIE') > -1,
+            is_firefox = navigator.userAgent.indexOf('Firefox') > -1,
+            is_safari = navigator.userAgent.indexOf("Safari") > -1,
+            is_Opera = navigator.userAgent.indexOf("Presto") > -1;
 
         // Get the mouse position relative to the canvas element.
         if (ev.layerX || ev.layerX == 0) { //for firefox
             x = ev.layerX;
             y = ev.layerY;
         }
-        x-=canvasNav.offsetLeft;
-        y-=canvasNav.offsetTop;
+        
+        if (!((is_chrome)||(is_safari))){
+            x-=canvasNav.offsetLeft;
+            y-=canvasNav.offsetTop; 
+        }
+        
         //is the mouse over the link?
         
+
         if(x>=x_story && x <= (x_story + width_story) && y>=y_story && y<= (y_story+height_story)){
             $("#body1").css("cursor","pointer");
             linkDest = "/content/story";
@@ -150,8 +167,8 @@
 
     $(document).ready(function(){
         $("#canvasNav").attr({
-            "width" : width_shelf+x_shelf+width_reg*scale1/2+width_story*scale1/2+50*scale1,
-            "height" : height_shelf+170*scale1+y_offset
+            "width" : width_canvasNav,
+            "height" : height_canvasNav
         });
     });
 </script>
