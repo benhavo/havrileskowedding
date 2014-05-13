@@ -1,6 +1,6 @@
 <?php
 
-class Home {
+class Email {
 
 	private $templum;
 	private $user_model;
@@ -27,6 +27,7 @@ class Home {
 		$file = fopen('log.txt','w');
 		fwrite($file, print_r($this->post,true));
 		fclose($file);
+		exit;
 	}
 
 	private function render($tpl,$args=array(),$return_str=false){
