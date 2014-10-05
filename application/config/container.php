@@ -22,6 +22,7 @@
 
 	$core->add_controller('home');
 	$core->add_controller('content');
+	$core->add_controller('havrileskowedding');
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +33,12 @@
 	$core->db=$core->share(function($c){
 
 		$c->incl('classes/class.database.php');
-		$mysql = new db("mysql:host={$c->config->db_host};port=3306;dbname={$c->config->db_database}",$c->config->db_user,$c->config->db_pass);
+		$mysql = new db(
+			"mysql:host={$c->config->db_host};port=8889;dbname={$c->config->db_database}",
+			$c->config->db_user,$c->config->db_pass
+		);
 		//$mysql->setErrorCallbackFunction('db_error');
+
 		return($mysql);
 
 	});
@@ -58,15 +63,15 @@
 
 	});
 
-/* 
-|-------------------------------------------------------------------------- 
-| Mailgun Engine 
-|-------------------------------------------------------------------------- 
-*/ 
- 
-	$core->mailgun = $core->share(function($c){ 
+/*
+|--------------------------------------------------------------------------
+| Mailgun Engine
+|--------------------------------------------------------------------------
+*/
 
-		$c->incl('classes/class.maillist.php'); 
-		return(new MailList($c->config)); 
+	$core->mailgun = $core->share(function($c){
 
-	}); 
+		$c->incl('classes/class.maillist.php');
+		return(new MailList($c->config));
+
+	});

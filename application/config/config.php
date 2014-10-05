@@ -5,7 +5,7 @@
 | System-Wide PHP Settings
 |--------------------------------------------------------------------------
 */
-	
+
 	session_start();
 	//print_r($_SESSION);
 	ini_set('display_errors',1);
@@ -18,7 +18,7 @@
 */
 
 	$config=new stdClass;
-	$config->base_url='http://www.havrileskowedding.com';
+	$config->base_url='localhost:8888/havrileskowedding';
 
 /*
 |--------------------------------------------------------------------------
@@ -34,9 +34,9 @@
 |--------------------------------------------------------------------------
 */
 
-	$config->db_host='havrileskoweddingcom.ipagemysql.com';
-	$config->db_user='benhavo';
-	$config->db_pass='Danielle22!';
-	$config->db_database='wedding';
-	$config->mailgun_url='https://api.mailgun.net/v2/capturehighered.mailgun.org/messages';
-	$config->mailgun_key='api:key-6qusbq-jqvwn61g024bnepsc-dtp83a6';
+	$config->db_host='localhost:8889';
+	$config->db_user='root';
+	$config->db_pass='root';
+	$config->db_database='db';
+	// $config->mailgun_url='https://api.mailgun.net/v2/capturehighered.mailgun.org/messages';
+	// $config->mailgun_key='api:key-6qusbq-jqvwn61g024bnepsc-dtp83a6';

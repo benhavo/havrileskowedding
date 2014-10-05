@@ -25,7 +25,7 @@ class db extends PDO {
 
 		try {
 			parent::__construct($dsn, $user, $passwd, $options);
-		} 
+		}
 		catch (PDOException $e) {
 			$this->error = $e->getMessage();
 		}
@@ -93,19 +93,19 @@ class db extends PDO {
 			$key = "Field";
 
 		}
-		else {	
+		else {
 
 			$sql = "SELECT column_name FROM information_schema.columns WHERE table_name = '" . $table . "';";
 			$key = "column_name";
 
-		}	
+		}
 
 		if(false!==($list=$this->run($sql)->many())){
 			$fields = array();
 			foreach($list as $record){
 				$fields[] = $record->{$key};
 			}
-				
+
 			return array_values(array_intersect($fields, array_keys($info)));
 
 		}
@@ -135,7 +135,7 @@ class db extends PDO {
 
 		$fields = $this->filter($table, $info);
 		$sql = "INSERT INTO " . $table . " (" . implode($fields, ", ") . ") VALUES (:" . implode($fields, ", :") . ");";
-		
+
 		$bind = array();
 
 		foreach($fields as $field){
@@ -177,7 +177,7 @@ class db extends PDO {
 			}
 
 		} catch (PDOException $e) {
-			$this->error = $e->getMessage();	
+			$this->error = $e->getMessage();
 			$this->debug();
 			return false;
 		}
@@ -192,18 +192,18 @@ class db extends PDO {
 	}
 
 	public function setErrorCallbackFunction($errorCallbackFunction, $errorMsgFormat="html") {
-		
+
 		//Variable functions for won't work with language constructs such as echo and print, so these are replaced with print_r.
 		if(in_array(strtolower($errorCallbackFunction), array("echo", "print")))
 			$errorCallbackFunction = "print_r";
 
 		if(function_exists($errorCallbackFunction)) {
-			$this->errorCallbackFunction = $errorCallbackFunction;	
+			$this->errorCallbackFunction = $errorCallbackFunction;
 			if(!in_array(strtolower($errorMsgFormat), array("html", "text")))
 				$errorMsgFormat = "html";
-			$this->errorMsgFormat = $errorMsgFormat;	
-		}	
-		
+			$this->errorMsgFormat = $errorMsgFormat;
+		}
+
 	}
 
 	public function update($table, $info, $where, $bind="") {
@@ -214,19 +214,19 @@ class db extends PDO {
 		for($f = 0; $f < $fieldSize; ++$f) {
 			if($f > 0)
 				$sql .= ", ";
-			$sql .= $fields[$f] . " = :update_" . $fields[$f]; 
+			$sql .= $fields[$f] . " = :update_" . $fields[$f];
 		}
 		$sql .= " WHERE " . $where . ";";
 
 		$bind = $this->cleanup($bind);
 		foreach($fields as $field)
 			$bind[":update_$field"] = $info[$field];
-		
+
 		return $this->run($sql, $bind);
 	}
 
 	public function one(){
-		
+
 		if(count($this->result)>0){
 			return($this->result[0]);
 		}
@@ -260,4 +260,3 @@ class db extends PDO {
 	}
 
 }
-
